@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Oxygen Mono";
-    src: local("Oxygen Mono"), url("https://fonts.googleapis.com/css2?family=Oxygen+Mono&display=swap");
+    src: local("Oxygen Mono"), url("../fonts/Oxygen Mono.ttf"), url("https://fonts.googleapis.com/css2?family=Oxygen+Mono&display=swap");
 }
 :root {
     --Golden-Ratio: 1.6180334;

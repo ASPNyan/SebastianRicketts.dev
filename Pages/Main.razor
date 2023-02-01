@@ -3,21 +3,33 @@
 <link href="css/Main.css" rel="stylesheet"/>
 
 <div id="NameWrapper">
+    <div @onmousemove="MouseMove"></div>
     <h1 id="FirstName">
-        <span>S</span><span>E</span><span>B</span><span>A</span><span>S</span><span>T</span><span>I</span><span>A</span><span>N</span>
-        @* ffs firefox/chrome and your weird HTML space handling. these span tags make my eyes hurt, but it will only work like this *@
+        <span>S</span>
+        <span>E</span>
+        <span>B</span>
+        <span>A</span>
+        <span>S</span>
+        <span>T</span>
+        <span>I</span>
+        <span>A</span>
+        <span>N</span>
     </h1>
     <h1 id="LastName">
-        <span>R</span><span>I</span><span>C</span><span>K</span><span>E</span><span>T</span><span>T</span><span>S</span>
-        @* read previous comment for context of the span tag spam *@
+        <span>R</span>
+        <span>I</span>
+        <span>C</span>
+        <span>K</span>
+        <span>E</span>
+        <span>T</span>
+        <span>T</span>
+        <span>S</span>
     </h1>
 </div>
 
 @code {
-    
-    private void LetterHover(int Letter)
+    private static void MouseMove(MouseEventArgs Args)
     {
         
     }
-
 }

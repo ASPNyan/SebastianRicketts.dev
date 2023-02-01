@@ -7,13 +7,16 @@
     flex-flow: column nowrap;
     justify-content: center;
     gap: 3vmax;
+    background: #151515;
 }
 
 #NameWrapper > h1 {
     margin: 0;
-    color: white;
+    color: transparent;
     font: 10vmax "Oxygen Mono", monospace;
     display: flex;
     justify-content: space-between;
+    background-clip: text;
+    -webkit-background-clip: text;
 }
 
