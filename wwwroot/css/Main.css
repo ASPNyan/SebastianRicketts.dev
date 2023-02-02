@@ -54,33 +54,3 @@
     filter: none;
     opacity: 1;
 }
-
-#NameWrapper {
-    position: absolute;
-    --Height: calc(60vw / var(--Golden-Ratio));
-    width: 60vw;
-    height: var(--Height);
-    margin: calc(50vh - var(--Height) / 2) calc(50vw - 30vw);
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    gap: 3vmax;
-    background: transparent;
-    visibility: hidden;
-    transition: visibility 200ms;
-}
-
-#NameWrapper > h1 {
-    margin: 0;
-    color: #151515;
-    font: 10vmax "Oxygen Mono", monospace;
-    display: flex;
-    background: transparent;
-    justify-content: space-between;
-    user-select: none;
-}
-
-#NameWrapper > h1 > span {
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
