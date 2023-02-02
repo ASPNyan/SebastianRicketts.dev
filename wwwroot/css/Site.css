@@ -1,7 +1,18 @@
 @font-face {
     font-family: "Oxygen Mono";
-    src: local("Oxygen Mono"), url("../fonts/Oxygen Mono.ttf"), url("https://fonts.googleapis.com/css2?family=Oxygen+Mono&display=swap");
+    src: local("Oxygen Mono"), url("../fonts/Oxygen Mono.ttf");
 }
+
+@font-face {
+    font-family: "Rubik";
+    src: local("Rubik"), url("../fonts/Rubik.ttf");
+}
+
+@font-face {
+    font-family: "VT323";
+    src: local("VT323"), url("../fonts/VT323.ttf");
+}
+
 :root {
     --Golden-Ratio: 1.6180334;
 }

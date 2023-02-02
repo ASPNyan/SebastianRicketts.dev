@@ -1,4 +1,62 @@
-﻿#NameWrapper {
+﻿main, body {
+    margin: 0;
+    overflow: hidden;
+    background: #151515;
+    width: 100vw;
+    height: 100vh;
+    cursor: none;
+}
+
+#MouseLight {
+    position: absolute;
+    width: 10vmax;
+    height: 10vmax;
+    border-radius: 50%;
+    background: #151515 radial-gradient(circle at center, transparent 0, #151515 80%);
+    box-shadow: #151515 0 0 0 200vmax;
+    filter: blur(0);
+    z-index: 1;
+    opacity: 1;
+    margin-left: -5vmax;
+    margin-top: -5vmax;
+    transition: all 100ms ease-in-out;
+    user-select: none;
+}
+
+#OnButtonWrapper {
+    position: absolute;
+    height: 4vmax;
+    width: 4vmax;
+    border-radius: 50%;
+    background: transparent;
+    z-index: 2;
+    opacity: 1;
+    
+    transition: scale 100ms ease-in-out, background 400ms ease-in-out;
+}
+
+#OnButton {
+    position: relative;
+    width: 3vmax;
+    height: 3vmax;
+    border-radius: 50%;
+
+    filter: saturate(7451%) hue-rotate(141deg) brightness(96%) contrast(84%);
+    opacity: 0.2;
+    
+    
+    left: calc(50% - 1.5vmax);
+    top: calc(50% - 1.5vmax);
+    transition: all 400ms ease-in-out;
+}
+
+#OnButton:hover {
+    filter: none;
+    opacity: 1;
+}
+
+#NameWrapper {
+    position: absolute;
     --Height: calc(60vw / var(--Golden-Ratio));
     width: 60vw;
     height: var(--Height);
@@ -7,16 +65,22 @@
     flex-flow: column nowrap;
     justify-content: center;
     gap: 3vmax;
-    background: #151515;
+    background: transparent;
+    visibility: hidden;
+    transition: visibility 200ms;
 }
 
 #NameWrapper > h1 {
     margin: 0;
-    color: transparent;
+    color: #151515;
     font: 10vmax "Oxygen Mono", monospace;
     display: flex;
+    background: transparent;
     justify-content: space-between;
-    background-clip: text;
-    -webkit-background-clip: text;
+    user-select: none;
 }
 
+#NameWrapper > h1 > span {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

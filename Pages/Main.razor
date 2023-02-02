@@ -2,34 +2,111 @@
 
 <link href="css/Main.css" rel="stylesheet"/>
 
-<div id="NameWrapper">
-    <div @onmousemove="MouseMove"></div>
-    <h1 id="FirstName">
-        <span>S</span>
-        <span>E</span>
-        <span>B</span>
-        <span>A</span>
-        <span>S</span>
-        <span>T</span>
-        <span>I</span>
-        <span>A</span>
-        <span>N</span>
-    </h1>
-    <h1 id="LastName">
-        <span>R</span>
-        <span>I</span>
-        <span>C</span>
-        <span>K</span>
-        <span>E</span>
-        <span>T</span>
-        <span>T</span>
-        <span>S</span>
-    </h1>
-</div>
+<main @onmousemove="MouseMove" @onmouseleave="() => MouseLightOn = false">
+    <div id="MouseLight" @onclick="ToggleMouseLight"></div>
+    
+    <div id="OnButtonWrapper">
+        <img src="svg/PowerButton.svg" id="OnButton" alt="" @onclick="PowerButtonClick"/>
+    </div>
+    
+    <div id="NameWrapper">
+        <h1 id="FirstName">
+            <span>S</span>
+            <span>E</span>
+            <span>B</span>
+            <span>A</span>
+            <span>S</span>
+            <span>T</span>
+            <span>I</span>
+            <span>A</span>
+            <span>N</span>
+        </h1>
+        <h1 id="LastName">
+            <span>R</span>
+            <span>I</span>
+            <span>C</span>
+            <span>K</span>
+            <span>E</span>
+            <span>T</span>
+            <span>T</span>
+            <span>S</span>
+        </h1>
+    </div>
+</main>
+
+<style>
+    #OnButtonWrapper {
+        top: @PowerButtonY;
+        left: @PowerButtonX;
+    }
+
+    #MouseLight {
+        animation: MoveMouseLight 600ms ease-in-out forwards;
+        background-color: @(MouseLightOn ? "lightblue" : "#151515");
+        filter: blur(@(MouseLightOn ? "3.5vmax" : "0"));
+    }
+    
+    @@keyframes MoveMouseLight {
+        to {
+            top: @MouseY;
+            left: @MouseX;
+        }    
+    }
+</style> 
+
+@if (ShowText)
+{
+    <style>
+        #OnButtonWrapper {
+            scale: 0;
+            visibility: hidden;
+        }
+        #MouseLight {
+            scale: 0;
+            visibility: hidden;
+        }
+    </style>
+    
+}
+
+
 
 @code {
-    private static void MouseMove(MouseEventArgs Args)
+    private string PowerButtonX = string.Empty;
+    private string PowerButtonY = string.Empty;
+    private string MouseX = string.Empty;
+    private string MouseY = string.Empty;
+    private bool MouseLightOn;
+    private bool ShowText;
+
+    protected override void OnInitialized()
     {
-        
+        Random Random = new();
+        PowerButtonX = $"{Random.Next(5, 95)}vw";
+        PowerButtonY = $"{Random.Next(10, 95)}vh";
+    }
+
+    private void MouseMove(MouseEventArgs Args)
+    {
+        MouseX = $"{Args.PageX}px";
+        MouseY = $"{Args.PageY}px";
+    }
+
+    private void ToggleMouseLight()
+    {
+        MouseLightOn = !MouseLightOn;
+    }
+
+    private void PowerButtonClick()
+    {
+        MouseLightOn = false;
+        ShowText = true;
+    }
+
+    private static string GenerateTiming()
+    {
+        Random Random = new();
+        int Timing = Random.Next(400, 1600);
+        return $"{Timing}ms";
     }
 }
