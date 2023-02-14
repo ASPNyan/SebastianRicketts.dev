@@ -1,0 +1,32 @@
+﻿@page "/"
+@inject State State
+@implements IDisposable
+
+<PageTitle>Sebastian Ricketts</PageTitle>
+
+<main>
+    @switch (State.Current)
+    {
+        case State.Component.Startup:
+            <Startup/>
+            break;
+        case State.Component.Transition:
+            <Transition/>
+            break;
+        case State.Component.Name:
+            <Name/>
+            break;
+    }
+</main>
+
+@code {
+    protected override void OnInitialized()
+    {
+        State.OnChange += StateHasChanged;
+    }
+    
+    public void Dispose()
+    {
+        State.OnChange -= StateHasChanged;
+    }
+}

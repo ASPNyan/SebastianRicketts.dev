@@ -1,39 +1,12 @@
-﻿@page "/"
+﻿@inject State State
 
-<PageTitle>Sebastian Ricketts</PageTitle>
-
-<link href="css/Main.css" rel="stylesheet"/>
-<link href="css/Name.css" rel="stylesheet"/>
+<link href="css/Startup.css" rel="stylesheet"/>
 
 <main @onmousemove="MouseMove" @onmouseleave="() => MouseLightOn = false">
     <div id="MouseLight" @onclick="ToggleMouseLight"></div>
     
     <div id="OnButtonWrapper">
         <img src="svg/PowerButton.svg" id="OnButton" alt="" @onclick="PowerButtonClick"/>
-    </div>
-    
-    <div id="NameWrapper">
-        <h1 id="FirstName">
-            <span>S</span>
-            <span>E</span>
-            <span>B</span>
-            <span>A</span>
-            <span>S</span>
-            <span>T</span>
-            <span>I</span>
-            <span>A</span>
-            <span>N</span>
-        </h1>
-        <h1 id="LastName">
-            <span>R</span>
-            <span>I</span>
-            <span>C</span>
-            <span>K</span>
-            <span>E</span>
-            <span>T</span>
-            <span>T</span>
-            <span>S</span>
-        </h1>
     </div>
 </main>
 
@@ -55,24 +28,7 @@
             left: @MouseX;
         }    
     }
-</style> 
-
-@if (ShowText)
-{
-    <style>
-        #OnButtonWrapper {
-            scale: 0;
-            visibility: hidden;
-        }
-        #MouseLight {
-            scale: 0;
-            visibility: hidden;
-        }
-    </style>
-    
-}
-
-
+</style>
 
 @code {
     private string PowerButtonX = string.Empty;
@@ -80,7 +36,6 @@
     private string MouseX = string.Empty;
     private string MouseY = string.Empty;
     private bool MouseLightOn;
-    private bool ShowText;
 
     protected override void OnInitialized()
     {
@@ -103,13 +58,6 @@
     private void PowerButtonClick()
     {
         MouseLightOn = false;
-        ShowText = true;
-    }
-
-    private static string GenerateTiming()
-    {
-        Random Random = new();
-        int Timing = Random.Next(400, 1600);
-        return $"{Timing}ms";
+        State.Set(State.Component.Transition);
     }
 }

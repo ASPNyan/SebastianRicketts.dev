@@ -21,6 +21,25 @@ body, main {
     background: #151515;
 }
 
+#Loading {
+    
+}
+#Loading::after {
+    animation: Loading 600ms infinite forwards;
+}
+
+@keyframes Loading {
+    from, to {
+        content: "..";
+    }
+    33% {
+        content: "...";
+    }
+    66% {
+        content: ".";
+    }
+}
+
 #blazor-error-ui {
     background: lightblue ;
     bottom: 0;
