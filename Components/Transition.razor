@@ -1,0 +1,50 @@
+﻿<link href="css/Transition.css" rel="stylesheet"/>
+
+<div id="LineContainer">
+    <div class="Line" style="--Colour: @RandomPastel()"></div>
+    <div class="Line" style="--Colour: @RandomPastel()"></div>
+    <div class="Line" style="--Colour: @RandomPastel()"></div>
+    <div class="Line" style="--Colour: @RandomPastel()"></div>
+    <div class="Line" style="--Colour: @RandomPastel()"></div>
+    <div class="Line" style="--Colour: @RandomPastel()"></div>
+    <div class="Line" style="--Colour: @RandomPastel()"></div>
+    <div class="Line" style="--Colour: @RandomPastel()"></div>
+    <div class="Line" style="--Colour: @RandomPastel()"></div>
+    <div class="Line" style="--Colour: @RandomPastel()"></div>
+    <div class="Line" style="--Colour: @RandomPastel()"></div>
+    <div class="Line" style="--Colour: @RandomPastel()"></div>
+    
+    <MeshGradient>
+        @Previous
+    </MeshGradient>
+</div>
+
+@code {
+    
+    private static string[] Pastels = 
+    {
+        "#a4b6dd",
+        "#d09292",
+        "#c094cc",
+        "#a2d0c0",
+        "#c37892",
+        "#143f46",
+        "#2a695e",
+        "#8d8171",
+        "#cbb89a"
+    };
+
+    private static List<string> Previous = new();
+    
+    private static string RandomPastel()
+    {
+        Random Random = new();
+        
+        string New = Pastels[Random.Next(0, Pastels.Length - 1)];
+        while (Previous.Contains(New)) New = Pastels[Random.Next(0, Pastels.Length - 1)];
+        
+        Previous.Add(New);
+        
+        return New;
+    }
+}

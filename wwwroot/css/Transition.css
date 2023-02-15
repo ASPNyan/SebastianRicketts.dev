@@ -1,1 +1,20 @@
-﻿
+﻿#LineContainer {
+    width: 100vw;
+    height: 100vh;
+    background: #151515;
+    
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Line {
+    --Colour: #a4b6dd;
+    --Height: calc(100vh / 9);
+    
+    width: 100vw;
+    height: var(--Height);
+    
+    background: var(--Colour);
+}

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress HtmlUnknownAttribute | This is for the pathLength attribute, which my IDE is marking as invalid-->
 <html lang="en">
 
 <head>
@@ -6,13 +7,14 @@
     <title>Sebastian Ricketts</title>
     <base href="/" />
     <link href="css/Site.css" rel="stylesheet" />
-    
-    <!-- If you add any scoped CSS files, uncomment the following to load them
-    <link href="SebastianRicketts.dev.styles.css" rel="stylesheet" /> -->
 </head>
 
 <body id="app">
-    <span id="Loading">Loading</span>
+    <svg id="Loading" viewBox="0 0 100 100">
+        <circle id="LoadingRing" r="42" cx="50%" cy="50%" pathLength="100"/>
+        <circle id="ProgressBackground" r="35" cx="50%" cy="50%" pathLength="100"/>
+        <circle id="ProgressBackground" r="30" cx="50%" cy="50%" pathLength="100"/>
+    </svg>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.

@@ -4,20 +4,18 @@
 
 <PageTitle>Sebastian Ricketts</PageTitle>
 
-<main>
-    @switch (State.Current)
-    {
-        case State.Component.Startup:
-            <Startup/>
-            break;
-        case State.Component.Transition:
-            <Transition/>
-            break;
-        case State.Component.Name:
-            <Name/>
-            break;
-    }
-</main>
+@switch (State.Current)
+{
+    case State.Component.Startup:
+        <Startup/>
+        break;
+    case State.Component.Transition:
+        <Transition/>
+        break;
+    case State.Component.Name:
+        <Name/>
+        break;
+}
 
 @code {
     protected override void OnInitialized()

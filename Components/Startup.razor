@@ -2,13 +2,13 @@
 
 <link href="css/Startup.css" rel="stylesheet"/>
 
-<main @onmousemove="MouseMove" @onmouseleave="() => MouseLightOn = false">
+<div id="Container" onmousemove="@MouseMove" @onmouseleave="() => MouseLightOn = false">
     <div id="MouseLight" @onclick="ToggleMouseLight"></div>
     
     <div id="OnButtonWrapper">
         <img src="svg/PowerButton.svg" id="OnButton" alt="" @onclick="PowerButtonClick"/>
     </div>
-</main>
+</div>
 
 <style>
     #OnButtonWrapper {
@@ -53,6 +53,7 @@
     private void ToggleMouseLight()
     {
         MouseLightOn = !MouseLightOn;
+        StateHasChanged();
     }
 
     private void PowerButtonClick()

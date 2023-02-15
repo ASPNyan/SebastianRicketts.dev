@@ -11,4 +11,16 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.2" PrivateAssets="all" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Components\Name.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Components\Startup.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Components\Transition.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Components\Name.razor" />
+    <AdditionalFiles Include="Components\Startup.razor" />
+    <AdditionalFiles Include="Components\Transition.razor" />
+  </ItemGroup>
+
 </Project>

@@ -19,5 +19,8 @@ public class State
         StateChanged();
     }
 
-    private void StateChanged() => OnChange?.Invoke();
+    private void StateChanged()
+    {
+        OnChange?.Invoke();
+    }
 }

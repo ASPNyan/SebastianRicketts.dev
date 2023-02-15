@@ -1,6 +1,8 @@
-﻿main, body {
-    margin: 0;
+﻿* {
     overflow: hidden;
+}
+
+#Container {
     background: #151515;
     width: 100vw;
     height: 100vh;
@@ -43,7 +45,6 @@
 
     filter: saturate(7451%) hue-rotate(141deg) brightness(96%) contrast(84%);
     opacity: 0.2;
-    
     
     left: calc(50% - 1.5vmax);
     top: calc(50% - 1.5vmax);

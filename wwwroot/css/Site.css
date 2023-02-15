@@ -17,26 +17,45 @@
     --Golden-Ratio: 1.6180334;
 }
 
-body, main {
+* {
+    margin: 0;
+}
+
+html, #app {
     background: #151515;
 }
 
-#Loading {
-    
+#app {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    place-content: center;
 }
-#Loading::after {
-    animation: Loading 600ms infinite forwards;
+
+#Loading {
+    width: 30vmin;
+    height: 30vmin;
+    background: transparent;
+}
+
+#LoadingRing {
+    fill: none;
+    stroke: #555;
+    animation: Loading 750ms ease-in-out;
 }
 
 @keyframes Loading {
-    from, to {
-        content: "..";
+    from {
+        stroke-dasharray: none;
     }
-    33% {
-        content: "...";
+    25% {
+        stroke-dasharray: 45 55;
     }
-    66% {
-        content: ".";
+    65% {
+        stroke-dasharray: 0 55 45;
+    }
+    90% {
+        stroke-dasharray: 0 100;
     }
 }
 
