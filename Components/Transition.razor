@@ -2,21 +2,17 @@
 
 <div id="LineContainer">
     <div class="Line" style="--Colour: @RandomPastel()"></div>
-    <div class="Line" style="--Colour: @RandomPastel()"></div>
-    <div class="Line" style="--Colour: @RandomPastel()"></div>
-    <div class="Line" style="--Colour: @RandomPastel()"></div>
-    <div class="Line" style="--Colour: @RandomPastel()"></div>
-    <div class="Line" style="--Colour: @RandomPastel()"></div>
-    <div class="Line" style="--Colour: @RandomPastel()"></div>
-    <div class="Line" style="--Colour: @RandomPastel()"></div>
-    <div class="Line" style="--Colour: @RandomPastel()"></div>
-    <div class="Line" style="--Colour: @RandomPastel()"></div>
-    <div class="Line" style="--Colour: @RandomPastel()"></div>
-    <div class="Line" style="--Colour: @RandomPastel()"></div>
-    
-    <MeshGradient>
-        @Previous
-    </MeshGradient>
+    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 80ms"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 160ms"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 240ms"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 320ms"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 400ms"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 480ms"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 560ms"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 640ms"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 720ms"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 800ms"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 880ms"></div>
 </div>
 
 @code {
@@ -30,10 +26,13 @@
         "#c37892",
         "#143f46",
         "#2a695e",
-        "#8d8171",
-        "#cbb89a"
+        "#cbb89a",
+        "#850d55",
+        "#880202",
+        "#0e8879",
+        "#add0b3"
     };
-
+    
     private static List<string> Previous = new();
     
     private static string RandomPastel()
@@ -41,7 +40,7 @@
         Random Random = new();
         
         string New = Pastels[Random.Next(0, Pastels.Length - 1)];
-        while (Previous.Contains(New)) New = Pastels[Random.Next(0, Pastels.Length - 1)];
+        if (Previous.Count > 0) while (Previous.Last() == New) New = Pastels[Random.Next(0, Pastels.Length - 1)];
         
         Previous.Add(New);
         

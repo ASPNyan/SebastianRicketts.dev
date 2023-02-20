@@ -8,11 +8,6 @@
     src: local("Rubik"), url("../fonts/Rubik.ttf");
 }
 
-@font-face {
-    font-family: "VT323";
-    src: local("VT323"), url("../fonts/VT323.ttf");
-}
-
 :root {
     --Golden-Ratio: 1.6180334;
 }

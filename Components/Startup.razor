@@ -10,6 +10,8 @@
     </div>
 </div>
 
+<p id="LostMessage">Lost? Click the Left Mouse Button to Turn Your Light On</p>
+
 <style>
     #OnButtonWrapper {
         top: @PowerButtonY;
@@ -17,7 +19,7 @@
     }
 
     #MouseLight {
-        animation: MoveMouseLight 600ms ease-in-out forwards;
+        animation: MoveMouseLight 2s ease-in-out forwards;
         background-color: @(MouseLightOn ? "lightblue" : "#151515");
         filter: blur(@(MouseLightOn ? "3.5vmax" : "0"));
     }
@@ -28,6 +30,16 @@
             left: @MouseX;
         }    
     }
+
+    #LostMessage {
+        animation:  @(MouseLightUsed ? "LostMessageExit 300ms ease-in forwards" : "LostMessageEntry 300ms ease-in forwards");
+    }
+    
+    @@keyframes LostMessageExit {
+        to {
+            transform: translateY(-100%);
+        }
+    }
 </style>
 
 @code {
@@ -36,23 +48,34 @@
     private string MouseX = string.Empty;
     private string MouseY = string.Empty;
     private bool MouseLightOn;
+    private bool MouseLightUsed;
 
     protected override void OnInitialized()
     {
         Random Random = new();
         PowerButtonX = $"{Random.Next(5, 95)}vw";
         PowerButtonY = $"{Random.Next(10, 95)}vh";
+        
+        while (true)
+        {
+            if (MouseLightOn is false) continue;
+
+            MouseInfo Mouse = Queue.Dequeue();
+
+            MouseX = Mouse.X;
+            MouseY = Mouse.Y;
+        }
     }
 
     private void MouseMove(MouseEventArgs Args)
     {
-        MouseX = $"{Args.PageX}px";
-        MouseY = $"{Args.PageY}px";
+        Enqueue(new MouseInfo(Args));
     }
 
     private void ToggleMouseLight()
     {
         MouseLightOn = !MouseLightOn;
+        MouseLightUsed = true;
         StateHasChanged();
     }
 
@@ -60,5 +83,34 @@
     {
         MouseLightOn = false;
         State.Set(State.Component.Transition);
+    }
+    
+    private struct MouseInfo
+    {
+        public string X { get; }
+        public string Y { get; }
+
+        public MouseInfo(MouseEventArgs Args)
+        {
+            X = $"{Args.ClientX}px";
+            Y = $"{Args.ClientY}px";
+        }
+
+        public MouseInfo(int X, int Y)
+        {
+            this.X = $"{X}px";
+            this.Y = $"{Y}px";
+        }
+    }
+
+    private readonly Queue<MouseInfo> Queue = new();
+
+    private void Enqueue(MouseInfo Info)
+    {
+        lock (Queue)
+        {
+            Queue.Enqueue(Info);
+            Monitor.PulseAll(Queue);
+        }
     }
 }
