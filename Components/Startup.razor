@@ -58,8 +58,14 @@
         
         while (true)
         {
-            if (MouseLightOn is false) continue;
-
+            try
+            {
+                while (Queue.Count == 0) Monitor.Wait(Queue);
+            }
+            catch (Exception)
+            {
+    // Ignore the wait error since it still technically works, despite it apparently not
+            }
             MouseInfo Mouse = Queue.Dequeue();
 
             MouseX = Mouse.X;
