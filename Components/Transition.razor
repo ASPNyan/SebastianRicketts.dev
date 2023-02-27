@@ -1,22 +1,34 @@
-﻿<link href="css/Transition.css" rel="stylesheet"/>
+﻿@inject State State
 
-<div id="LineContainer">
-    <div class="Line" style="--Colour: @RandomPastel()"></div>
-    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 80ms"></div>
-    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 160ms"></div>
-    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 240ms"></div>
-    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 320ms"></div>
-    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 400ms"></div>
-    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 480ms"></div>
-    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 560ms"></div>
-    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 640ms"></div>
-    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 720ms"></div>
-    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 800ms"></div>
-    <div class="Line" style="--Colour: @RandomPastel(); animation-delay: 880ms"></div>
+<link href="css/Transition.css" rel="stylesheet"/>
+
+<div id="LineContainer" draggable="false">
+    <div class="Line" style="--Colour: @RandomPastel()" draggable="false"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); --Delay-Number: 1" draggable="false"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); --Delay-Number: 2" draggable="false"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); --Delay-Number: 3" draggable="false"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); --Delay-Number: 4" draggable="false"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); --Delay-Number: 5" draggable="false"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); --Delay-Number: 6" draggable="false"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); --Delay-Number: 7" draggable="false"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); --Delay-Number: 8" draggable="false"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); --Delay-Number: 9" draggable="false"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); --Delay-Number: 10" draggable="false"></div>
+    <div class="Line" style="--Colour: @RandomPastel(); --Delay-Number: 11" draggable="false"></div>
 </div>
 
-@code {
-    
+@code 
+{
+    protected override async Task OnAfterRenderAsync(bool FirstRender)
+    {
+        if (FirstRender)
+        {
+            await Task.Delay(11600);
+            
+            State.Set(State.Component.Name);
+        }
+    }
+
     private static string[] Pastels = 
     {
         "#a4b6dd",
@@ -24,7 +36,7 @@
         "#c094cc",
         "#a2d0c0",
         "#c37892",
-        "#143f46",
+        "#216773",
         "#2a695e",
         "#cbb89a",
         "#850d55",

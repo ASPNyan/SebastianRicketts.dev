@@ -8,10 +8,6 @@
     src: local("Rubik"), url("../fonts/Rubik.ttf");
 }
 
-:root {
-    --Golden-Ratio: 1.6180334;
-}
-
 * {
     margin: 0;
 }
@@ -36,7 +32,7 @@ html, #app {
 #LoadingRing {
     fill: none;
     stroke: #555;
-    animation: Loading 750ms ease-in-out;
+    animation: Loading 750ms ease-in-out infinite alternate;
 }
 
 @keyframes Loading {

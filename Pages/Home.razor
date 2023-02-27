@@ -9,11 +9,13 @@
     case State.Component.Startup:
         <Startup/>
         break;
-    case State.Component.Transition:
+        
+    case State.Component.Transition or State.Component.Name:
         <Transition/>
-        break;
-    case State.Component.Name:
-        <Name/>
+        if (State.Current == State.Component.Name)
+        {
+            <Name/>
+        }
         break;
 }
 

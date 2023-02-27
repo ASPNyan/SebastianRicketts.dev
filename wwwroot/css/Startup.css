@@ -55,20 +55,3 @@
     filter: none;
     opacity: 1;
 }
-
-#LostMessage {
-    width: 100vw;
-    text-align: center;
-    font: 7vmin "Rubik";
-    top: 0;
-    left: 0;
-    
-    transform: translateY(-100%);
-    animation: LostMessageEntry 300ms ease-in forwards;
-}
-
-@keyframes LostMessageEntry {
-    to {
-        transform: translateY(100%);
-    }
-}

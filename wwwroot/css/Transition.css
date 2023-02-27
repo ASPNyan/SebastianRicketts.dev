@@ -1,20 +1,79 @@
-﻿#LineContainer {
+﻿* {
+    overflow: hidden;
+}
+
+main {
+    cursor: none;
+}
+
+#LineContainer {
     width: 100vw;
     height: 100vh;
     background: #151515;
+    overflow: hidden;
     
     display: flex;
     flex-flow: column;
     justify-content: space-around;
     align-items: center;
+    user-select: none;
 }
 
-.Line {
+#LineContainer > .Line {
     --Colour: #a4b6dd;
-    --Height: calc(100vh / 9);
+    --Delay-Number: 0;
     
     width: 100vw;
-    height: var(--Height);
-    
+    height: calc(100vh / 12);
+    transform: translateX(-105%);
     background: var(--Colour);
+    overflow: visible;
+    user-select: none;
+    
+    animation: Slide 2600ms ease-in-out forwards alternate 3 calc(80ms * var(--Delay-Number)),
+        AfterSlide calc(3000ms - 90ms * var(--Delay-Number)) ease-in-out forwards calc(8300ms + 90ms * var(--Delay-Number));
+}
+
+@keyframes Slide {
+    from, 10% {
+        transform: translateX(-105%);
+    }
+    90%, to {
+        transform: translateX(105%);
+    }
+ }
+
+@keyframes AfterSlide {
+    5% {
+        position: absolute;
+        transform: translateX(110%);
+    }
+    80% {
+        position: absolute;
+        transform: translate(0, -30vh) rotate(-90deg) scale(0.06, 8);
+    }
+    100% {
+        position: absolute;
+        transform: translate(calc(100vw / 12 * var(--Delay-Number) - 45.9vw), 0) scale(0.04165, 6);
+    }
+}
+
+#LineContainer > .Line::after {
+    user-select: none;
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: radial-gradient(ellipse 53% 58%, var(--Colour) 65%, rgba(21, 21, 21, 0.5));
+    opacity: 0;
+    animation: ShowGradient 300ms ease-in forwards 11.3s;
+}
+
+@keyframes ShowGradient {
+    to {
+        opacity: 1;
+        filter: brightness(0.6);
+    }
 }
