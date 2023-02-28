@@ -14,11 +14,11 @@
     flex-flow: row nowrap;
     justify-content: space-around;
     align-items: center;
-    color: dimgrey;
     user-select: none;
+    backdrop-filter: blur(25vh);
     
     cursor: default;
-    animation: Start 150ms ease-in-out forwards;
+    animation: Start 150ms ease-in 350ms forwards;
 }
 
 @keyframes Start {
@@ -27,14 +27,48 @@
     }
 }
 
-#NameWrapper span {
+#NameWrapper > span {
     font: 7vmax "Oxygen Mono", monospace;
     flex-shrink: 1;
-    transition: font-size 300ms ease-in-out, color 300ms ease-in-out;
+    transition: 300ms ease-in-out, opacity 300ms ease-in;
+    place-content: center;
 }
 
-#NameWrapper span:hover {
-    font-size: 9vmax;
+#NameWrapper > span:hover {
+    font-size: 10vmax;
     flex-shrink: 0;
 }
 
+#NameWrapper > span:before {
+    position: absolute;
+    color: black;
+    content: attr(data-content);
+    transition: 600ms ease-in-out;
+    -webkit-text-fill-color: transparent;
+}
+
+#NameWrapper > span:after {
+    position: absolute;
+    color: black;
+    content: attr(data-content);
+    transition: 600ms ease-in-out;
+    margin-left: -4.2vmax;
+    -webkit-text-fill-color: transparent;
+}
+
+#NameWrapper > span:hover:before {
+    margin-top: -8vmax;
+    opacity: 1;
+    color: black;
+    content: attr(data-content);
+    -webkit-text-fill-color: rgba(127, 127, 127, 0.3);
+}
+
+#NameWrapper > span:hover:after {
+    margin-top: 8vmax;
+    opacity: 1;
+    color: black;
+    margin-left: -6vmax;
+    content: attr(data-content);
+    -webkit-text-fill-color: rgba(127, 127, 127, 0.3);
+}

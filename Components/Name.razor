@@ -1,21 +1,71 @@
-﻿<link href="css/Name.css" rel="stylesheet"/>
+﻿@inject State State
+
+<link href="css/Name.css" rel="stylesheet"/>
 
 <div id="NameWrapper">
-    <span>S</span>
-    <span>E</span>
-    <span>B</span>
-    <span>A</span>
-    <span>S</span>
-    <span>T</span>
-    <span>I</span>
-    <span>A</span>
-    <span>N</span>
-    <span>R</span>
-    <span>I</span>
-    <span>C</span>
-    <span>K</span>
-    <span>E</span>
-    <span>T</span>
-    <span>T</span>
-    <span>S</span>
+    <span data-content="S">S</span>
+    <span data-content="E">E</span>
+    <span data-content="B">B</span>
+    <span data-content="A">A</span>
+    <span data-content="S">S</span>
+    <span data-content="T">T</span>
+    <span data-content="I">I</span>
+    <span data-content="A">A</span>
+    <span data-content="N">N</span>
+    <span data-content="R">R</span>
+    <span data-content="I">I</span>
+    <span data-content="C">C</span>
+    <span data-content="K">K</span>
+    <span data-content="E">E</span>
+    <span data-content="T">T</span>
+    <span data-content="T">T</span>
+    <span data-content="S">S</span>
 </div>
+
+<style>
+    #NameWrapper {
+        background: radial-gradient(circle at 100% 0, rgba(@Pastels[0], 0.8) 0, rgba(@Pastels[1], 0.168) 52.08%, rgba(@Pastels[2], 0) 100%), 
+                linear-gradient(208.42deg, rgb(@Pastels[3]) 7.46%, rgba(@Pastels[4], 0.18) 42.58%, rgba(@Pastels[5], 0) 64.13%),
+                radial-gradient(109.15% 148.57% at 4.46% 98.44%, rgb(@Pastels[6]) 0%, rgba(@Pastels[7], 0.31) 100%);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+</style>
+
+@code {
+    private char[] NameArray = "SEBASTIANRICKETTS".ToCharArray();
+    
+    private static string[] Pastels =
+    {
+        "164, 182, 221",
+        "208, 146, 146",
+        "192, 148, 204",
+        "162, 208, 192",
+        "195, 120, 146",
+        "33, 103, 115",
+        "42, 105, 94",
+        "203, 184, 154",
+        "133, 13, 85",
+        "136, 2, 2",
+        "14, 136, 121",
+        "173, 208, 179"
+    };
+
+    protected override void OnInitialized()
+    {
+        for (int I = 0; I < 5; I++) Shuffle(Pastels);
+    }
+
+    private static void Shuffle<T>(T[] Array)
+    {
+        Random Random = new Random();
+
+        int ArrayLength = Array.Length;
+        while (ArrayLength > 1)
+        {
+            ArrayLength--;
+            int Next = Random.Next(ArrayLength + 1);
+            (Array[Next], Array[ArrayLength]) = (Array[ArrayLength], Array[Next]);
+        }
+    }
+}
