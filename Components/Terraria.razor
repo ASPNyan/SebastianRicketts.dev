@@ -1,0 +1,49 @@
+﻿@using Index = SebastianRicketts.Pages.Index
+
+
+<img src="img/Background.png" alt="" id="BackgroundImage" class="Parallax" @onload="() => _loadedImages++"
+     style="--SpeedX: @(DataSpeedX["Background"]); --SpeedY: @DataSpeedY["Background"];"/>
+<img src="img/BackgroundSky.png" alt="" id="Sky" class="Parallax" @onload="() => _loadedImages++"
+     style="--SpeedX: @(DataSpeedX["Sky"]); --SpeedY: @DataSpeedY["Sky"];"/>
+<img src="img/BackgroundObjects.png" alt="" id="Objects" class="Parallax" @onload="() => _loadedImages++"
+     style="--SpeedX: @(DataSpeedX["Objects"]); --SpeedY: @DataSpeedY["Objects"];"/>
+<div id="ParallaxText" class="Parallax"
+     style="--SpeedX: @(DataSpeedX["TextParallax"]); --SpeedY: @(DataSpeedY["TextParallax"]);">
+    <h1>Terraria</h1>
+    <h2>Re-Logic</h2>
+</div>
+<img src="img/MainForeground.png" alt="" id="Foreground" class="Parallax" @onload="() => _loadedImages++"
+     style="--SpeedX: @(DataSpeedX["Foreground"]); --SpeedY: @DataSpeedY["Foreground"];"/>
+<img src="img/CloseBuilding.png" alt="" id="Building" class="Parallax" @onload="() => _loadedImages++"
+     style="--SpeedX: @(DataSpeedX["Building"]); --SpeedY: @DataSpeedY["Building"];"/>
+<img src="img/CloseHills.png" alt="" id="Hills" class="Parallax" @onload="() => _loadedImages++"
+     style="--SpeedX: @(DataSpeedX["Hills"]); --SpeedY: @DataSpeedY["Hills"];"/>
+
+@code {
+     public static double AspectRatio => Index.AspectRatio;
+
+     private const int TotalImages = 6;
+     private int _loadedImages;
+     
+     private static readonly Dictionary<string, double> DataSpeedX = new()
+     {
+          { "Background", 0.3 },
+          { "Sky", 0.28 },
+          { "Objects", 0.25 },
+          { "TextParallax", 0.17 },
+          { "Foreground", 0.14 },
+          { "Building", 0.1 },
+          { "Hills", 0.08 }
+     };
+
+     private Dictionary<string, double> DataSpeedY => new()
+     {
+          { "Background", 0.25 / AspectRatio },
+          { "Sky", 0.23 / AspectRatio },
+          { "Objects", 0.2 / AspectRatio },
+          { "TextParallax", 0.12 / AspectRatio },
+          { "Foreground", 0.11 / AspectRatio },
+          { "Building", 0.09 / AspectRatio },
+          { "Hills", 0.07 / AspectRatio }
+     };
+}

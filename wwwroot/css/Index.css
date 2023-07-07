@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400&family=Montserrat:wght@200;700&display=swap');
+
+body {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    
+    top: 0;
+    left: 0;
+    border: 0;
+    margin: 0;
+}
+
+/* <Header> */
+
+#Logo {
+    width: 19vw;
+}
+
+#Heading {
+    --Primary: #db4c27;
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    
+    width: 100vw;
+    height: 8vh;
+    min-height: fit-content;
+    border-bottom: 1px solid rgba(255, 255, 255, 10%);
+}
+
+#Heading #Logo {
+    color: white;
+    font-weight: 400;
+    font-size: 5vh;
+    width: fit-content;
+}
+
+#Heading nav {
+    max-width: 90vw;
+    height: fit-content;
+    margin: 0 auto;
+    padding: 1vh 3vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#Heading .NavList {
+    display: flex;
+    gap: 1.5vw;
+    align-items: center;
+    list-style: none;
+}
+
+#Heading i {
+    text-decoration: none;
+    color: white;
+    padding: 0 1vw;
+    font-size: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 6vh;
+    height: 6vh;
+    border-radius: 50%;
+    background-color: rgba(70, 70, 70, 45%);
+}
+
+#Heading .NavList li {
+    cursor: pointer;
+}
+
+#Heading i::before {
+    transform: translateY(-6%);
+}
+
+#Heading .Menu {
+    overflow: hidden;
+    width: 6vh;
+    height: 6vh;
+    border: none;
+    border-radius: 50%;    
+    background-color: rgba(70, 70, 70, 45%);
+}
+
+#Heading .Menu .Hamburger {
+    transition: translate 1s, rotate 1s;
+}
+
+#Heading .Menu[aria-expanded="True"] .Hamburger {
+    translate: 6% -4%;
+    rotate: 0.125turn;
+}
+
+#Heading .Menu .line {
+    transition: 1s;
+    stroke-dasharray: 60 31 60 300;
+}
+
+#Heading .Menu[aria-expanded="True"] .line {
+    stroke-dasharray: 60 103 60 300;
+    stroke-dashoffset: -90;
+}
+
+#Heading .Menu .MenuNav {
+    position: absolute;
+    width: 25vw;
+    height: 50vh;
+    top: 9vh;
+    transform: translateX(calc(-50% + 3vh)); /* 3vh comes from the menu button width */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(20px);
+    visibility: hidden;
+    opacity: 0;
+    padding: 0;
+    border-radius: 10vh;
+    
+    font: 6vh "Comfortaa", sans-serif;
+    font-weight: 400;
+    color: white;
+    z-index: 100;
+    transition: opacity 400ms ease-in, visibility 400ms;
+}
+
+#Heading .Menu .MenuNav * {
+    text-decoration: transparent solid underline;
+    color: white;
+    cursor: pointer;
+    
+    transition: color 400ms ease-in, text-decoration 400ms ease-in;
+}
+
+#Heading .Menu .MenuNav *:hover {
+    color: var(--Primary);
+    text-decoration: var(--Primary) solid underline;
+}
+
+#Heading .Menu[aria-expanded="True"] .MenuNav {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* <main> */
+
+main {
+    --MouseX: 0px;
+    --MouseY: 0px;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+main img.Parallax {
+    --SpeedX: 0.3;
+    --SpeedY: calc(0.3 / 1.7778);
+    position: absolute;
+    aspect-ratio: 2.3888;
+    width: 130vw;
+    top: 48.3vh;
+    left: 50vw;
+    translate: calc(-50% - var(--MouseX) * var(--SpeedX)) calc(-50% + var(--MouseY) * var(--SpeedY));
+    pointer-events: none;
+
+    transition: 0.45s cubic-bezier(0.2, 0.49, 0.32, 0.99);
+}
+

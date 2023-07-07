@@ -1,0 +1,61 @@
+#BackgroundImage {
+    z-index: 0;
+}
+
+#Sky {
+    z-index: 1;
+}
+
+#Objects {
+    z-index: 2;
+}
+
+#ParallaxText {
+    --SpeedX: 0.17;
+    --SpeedY: calc(0.12 / 1.7778);
+    position: absolute;
+    top: 63vh;
+    left: 50vw;
+    translate: calc(-50% - var(--MouseX) * var(--SpeedX)) calc(-50% + var(--MouseY) * var(--SpeedY));
+    z-index: 3;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    font-family: 'Montserrat', system-ui;
+    line-height: 1.2;
+
+    transition: 0.45s cubic-bezier(0.2, 0.49, 0.32, 0.99);
+}
+
+#ParallaxText h1 {
+    font-weight: 200;
+    font-size: 14vh;
+}
+
+#ParallaxText h2 {
+    font-weight: 700;
+    font-size: 4vh;
+}
+
+#Foreground {
+    z-index: 4;
+}
+
+#Building {
+    z-index: 5;
+}
+
+#Hills {
+    z-index: 6;
+}
+
+#Vignette {
+    position: absolute;
+    z-index: 7;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 0.7));
+}

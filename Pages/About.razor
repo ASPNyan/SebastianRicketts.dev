@@ -1,0 +1,38 @@
+﻿@page "/About"
+@inject JSRuntime Js
+@using SebastianRicketts.Components
+@using System.Diagnostics.CodeAnalysis
+
+<HeadContent>
+    <link href="css/@(Index.CurrentTheme).css" rel="stylesheet"/>
+    <link href="css/About.css" rel="stylesheet"/>
+</HeadContent>
+
+<main>
+    <div id="Background">
+        @switch (Backing.ToLower())
+        {
+            case "terraria":
+                <Terraria/>
+                break;
+        }
+        <div id="BackgroundBlur"></div>
+    </div>
+
+    <article id="Content">
+        <AboutContent @ref="@AboutContentRef"/>
+    </article>
+</main>
+
+@code {
+    private static string Backing => Index.CurrentTheme;
+    [NotNull] private AboutContent? AboutContentRef { get; set; }
+
+    [NotNull] private IJSObjectReference? JsModule { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        JsModule = await Js.InvokeAsync<IJSObjectReference>("import", "./js/Parallax.js");
+    }
+
+}

@@ -1,0 +1,146 @@
+﻿@page "/"
+@inject IJSRuntime Js
+@inject NavigationManager Navigation
+@using SebastianRicketts.Components
+@using System.Diagnostics.CodeAnalysis
+
+<PageTitle>Sebastian Ricketts</PageTitle>
+
+<HeadContent>
+     <link href="css/@(CurrentTheme).css" rel="stylesheet"/>
+</HeadContent>
+
+@* ReSharper disable CSharpWarnings::CS8974 *@
+<div id="IndexBody" ontouchstart="@(_useMouseMove ? () => _useMouseMove = false : null)"
+     onmouseover="@(!_useMouseMove ? () => _useMouseMove = true : null)"
+     ontouchmove="@(MotionActive ? TouchMove : null)" 
+     onmousemove="@(MotionActive ? MouseMove : null)">
+    @* ReSharper restore CSharpWarnings::CS8974 *@
+    <header id="Heading" style="--Primary: #db4c27;">
+        <nav>
+            <div id="Logo">Sebastian Ricketts</div>
+            <ul class="NavList">
+                <li>
+                    <i class="Search fa-solid fa-magnifying-glass"></i>
+                </li>
+                <li>
+                    <button class="Menu" aria-expanded="@_menuExpanded.ToString()" @onclick="@SwitchMenu">
+                        <svg stroke="white" fill="none" class="Hamburger" viewBox="-10 -10 120 120">
+                            <path class="line" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"
+                                  d="m 20 40 h 60 a 1 1 0 0 1 0 20 h -60 a 1 1 0 0 1 0 -40 h 30 v 70"/>
+                        </svg>
+                        <nav class="MenuNav" @onclick:stopPropagation="true">
+                            <li>
+                                <p @onclick="@SwitchTheme">Switch Theme</p>
+                            </li>
+                            <li>
+                                <p @onclick="@(() => Navigation.NavigateTo("About"))">About Me</p>
+                            </li>
+                            <li>
+                                <a href="https://github.com/ASPNyan/SebastianRicketts.dev">GitHub</a>
+                            </li>
+                        </nav>
+                    </button>
+                </li>
+                <li>
+                    <i class="Motion fa-solid fa-person@(MotionActive ? "-running" : "")" @onclick="@SwitchMotion"></i>
+                </li>
+                <li>
+                    <i class="Pointer fa-solid fa-@(_useMouseMove ? "arrow" : "hand")-pointer" @onclick="@SwitchPointer"></i>   
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main style=@(MotionActive ? $"--MouseX: {_xValue}px; --MouseY: {_yValue}px;" : "--MouseX: 0px; --MouseY: 0px;")>
+        @switch (CurrentTheme)
+        {
+            case "Terraria":
+                <Terraria/>
+                break;
+        }
+        <div id="Vignette"></div>
+    </main>
+</div>
+
+@code {
+    [NotNull] private IJSObjectReference? JsModule { get; set; }
+    private bool _menuExpanded;
+
+    private bool MotionActive
+    {
+        get => AspectRatio > 0.75 && _motionActive;
+        set => _motionActive = value;
+    }
+    private bool _motionActive = true;
+    private bool _useMouseMove = true;
+
+    private static readonly string[] Themes =
+    {
+        "Terraria" // TODO: Find more images to turn parallax
+    };
+    public static string CurrentTheme => Themes[_currentThemeId];
+    private static int _currentThemeId = new Random().Next(0, Themes.Length - 1);
+
+    private void SwitchMenu() => _menuExpanded = !_menuExpanded;
+    private void SwitchMotion() => MotionActive = !MotionActive;
+    private void SwitchPointer() => _useMouseMove = !_useMouseMove;
+
+    private static void SwitchTheme()
+    {
+        _currentThemeId++;
+        if (_currentThemeId >= Themes.Length) _currentThemeId = 0;
+    }
+
+    private static int? _pageWidth;
+    private static int? _pageHeight;
+
+    public static double AspectRatio {
+        get
+        {
+            if (_pageWidth is null || _pageHeight is null) return 1.7778; // Assume 16:9 ratio
+            return (double)(_pageWidth / _pageHeight);
+        }
+    }
+
+    private double _xValue, _yValue;
+
+    protected override async Task OnInitializedAsync()
+    {
+        JsModule = await Js.InvokeAsync<IJSObjectReference>("import", "./js/Parallax.js");
+        _pageWidth = await JsModule.InvokeAsync<int>("GetWindowWidth");
+        _pageHeight = await JsModule.InvokeAsync<int>("GetWindowHeight");
+    }
+
+    private async Task MouseMove(MouseEventArgs args)
+    {
+        _useMouseMove = true;
+        _pageWidth = await JsModule.InvokeAsync<int>("GetWindowWidth");
+        _pageHeight = await JsModule.InvokeAsync<int>("GetWindowHeight");
+
+        _xValue = (double)(args.PageX - _pageWidth / 2d);
+        _yValue = (double)(args.PageY - _pageHeight / 2d);
+    }
+
+    private async Task TouchMove(TouchEventArgs args)
+    {
+        await Js.InvokeVoidAsync("preventDefaultTouch", args);
+        if (args.Touches.Length < 2) return;
+        
+        _useMouseMove = false;
+        double touchPointXTotal = 0;
+        double touchPointYTotal = 0;
+
+        _pageWidth ??= 1920;
+        _pageHeight ??= 1080; // Neither of these should happen, but just in-case
+
+        foreach (var touch in args.Touches)
+        {
+            touchPointXTotal += (double)(touch.PageX - _pageWidth / 2d);
+            touchPointYTotal += (double)(touch.PageY - _pageWidth / 2d);
+        }
+
+        _xValue = touchPointXTotal / args.Touches.Length;
+        _yValue = touchPointYTotal / args.Touches.Length;
+    }
+}
